@@ -1,0 +1,93 @@
+<div class="flex flex-col flex-wrap">
+  <div class="flex flex-col sm:flex-row justify-between items-center">
+    <mat-form-field class="sm:-mb-5 w-full sm:basis-2/3">
+      <mat-label>Search movie by title</mat-label>
+      <input
+        matInput
+        placeholder="Ex. Spider-Man"
+        [(ngModel)]="searchText"
+        (ngModelChange)="filterMovies()"
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <div>
+      <span class="mr-2">Sort by: </span>
+      <mat-button-toggle-group
+        name="sortBy"
+        aria-label="Sort By"
+        (change)="sortBy($event)"
+      >
+        <mat-button-toggle value="0">Title</mat-button-toggle>
+        <mat-button-toggle value="1">Release Date</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </div>
+
+  <div class="mt-5 mb-4">
+    <!-- Chips for filtering by genre -->
+    <mat-chip-listbox aria-label="Genre selection" hideSingleSelectionIndicator>
+      <mat-chip-option
+        *ngFor="let genre of genreList | keyvalue"
+        (selectionChange)="selectGenre($event, genre.value)"
+        >{{ genre.value }}</mat-chip-option
+      >
+    </mat-chip-listbox>
+  </div>
+
+  <div class="movie-list grid grid-cols-1 sm:grid-cols-3 gap-4">
+    <!-- Movie card -->
+    <div
+      class="movie-item group flex flex-col flex-wrap mt-6"
+      [style.background-image]="'url(' + movie.poster + ')'"
+      *ngFor="let movie of filteredMovies"
+    >
+      <div
+        class="movie-watchlist px-2 flex flex-row items-center"
+        [class.on-watchlist]="isMovieInWatchlist(movie.id)"
+        (click)="
+          !isMovieInWatchlist(movie.id)
+            ? addToWatchlist(movie.id)
+            : removeFromWatchlist(movie.id)
+        "
+      >
+        <!-- Add/Remove from Watchlist -->
+        <div class="mr-1">
+          {{
+            !isMovieInWatchlist(movie.id)
+              ? "Add to watchlist"
+              : "On my watchlist"
+          }}
+        </div>
+        <mat-icon class="text-sm !w-3.5 !h-5" matRipple>{{
+          !isMovieInWatchlist(movie.id) ? "add_circle_outline" : "check_circle"
+        }}</mat-icon>
+      </div>
+
+      <div class="movie-year group-hover:hidden">
+        {{ movie.date | date : "yyyy" }}
+      </div>
+
+      <div class="movie-rating flex flex-row group-hover:hidden">
+        <mat-icon class="text-sm !w-4 !h-4 mr-1">star</mat-icon>
+        {{ movie.rating }}
+      </div>
+
+      <div class="movie-genre group-hover:hidden">
+        {{ movie.genre.join(" · ") }}
+      </div>
+
+      <div
+        class="movie-overlay hidden group-hover:flex flex-col justify-center"
+        (click)="openDetails(movie.id)"
+        matRipple
+      >
+        <!-- Overlay view to show movie details -->
+        <div class="text-center">
+          <div class="font-bold mb-1">{{ movie.title }}</div>
+          <div>{{ movie.description }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

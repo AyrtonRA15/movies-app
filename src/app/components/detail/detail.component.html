@@ -1,0 +1,81 @@
+<div class="flex flex-col w-full">
+  <div class="flex flex-row justify-end pb-5">
+    <button mat-icon-button aria-label="Close view" (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="movie-details rounded-xl max-w-screen-sm">
+    <!-- Trailer -->
+    <div class="">
+      <youtube-player class="video-container w-full" [videoId]="ytVideoID">
+      </youtube-player>
+    </div>
+
+    <div class="p-4 flex flex-col sm:flex-row">
+      <div class="pr-4 flex justify-center">
+        <!-- Movie poster -->
+        <img
+          class="max-w-[18em] rounded-xl"
+          [src]="selectedMovie.poster"
+          alt=""
+        />
+      </div>
+      <div class="flex flex-col flex-wrap">
+        <!-- Movie details -->
+        <div class="font-extrabold mb-2 text-lg">{{ selectedMovie.title }}</div>
+        <div>{{ selectedMovie.description }}</div>
+
+        <mat-divider></mat-divider>
+
+        <div>
+          <label class="font-bold">Release date: </label>
+          <span>{{ selectedMovie.date | date : "d MMMM yyyy" }}</span>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="flex flex-row h-5">
+          <div class="flex-1">
+            <label class="font-bold">Duration: </label>
+            <span>{{
+              selectedMovie.duration * 1000 * 60 | date : "H'h' mm'min'" : "UTC"
+            }}</span>
+          </div>
+          <div class="flex-1">
+            <label class="font-bold">Rating: </label>
+            <span>{{ selectedMovie.rating }}</span>
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div>
+          <mat-chip-listbox aria-label="Genre list" disabled>
+            <mat-chip-option *ngFor="let genre of selectedMovie.genre">{{
+              genre
+            }}</mat-chip-option>
+          </mat-chip-listbox>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="flex flex-col mt-2 items-center">
+          <button
+            mat-icon-button
+            aria-label="Toggle Watchlist"
+            class="w-12"
+            (click)="toggleMovieInWatchlist()"
+          >
+            <mat-icon class="text-5xl !w-12 !h-12" matRipple>{{
+              !isMovieInWatchlist ? "add_circle_outline" : "check_circle"
+            }}</mat-icon>
+          </button>
+          <span>{{
+            !isMovieInWatchlist ? "Add to watchlist" : "On my watchlist"
+          }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

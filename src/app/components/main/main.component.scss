@@ -1,0 +1,83 @@
+.movie-list {
+    .movie-item {
+        position: relative;
+        height: 338px;
+        padding: 0.5rem;
+        background-color: black;
+        background-size: cover;
+        background-position: center;
+        border-radius: 0.5rem;
+        overflow: visible;
+        cursor: pointer;
+
+        .movie-watchlist {
+            position: absolute;
+            top: -24px;
+            right: 16px;
+            height: 24px;
+            background-color: black;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+
+            &:before,
+            &:after {
+                display: block;
+                content: " ";
+                position: absolute;
+                top: 0;
+                height: 100%;
+                width: 12px;
+                background-color: black;
+                transition: all 250ms ease;
+            }
+            
+            &:before {
+                right: -7px;
+                border-top-right-radius: 10px;
+                transform: skew(20deg, 0deg);
+            }
+            
+            &:after {
+                left: -7px;
+                border-top-left-radius: 10px;
+                transform: skew(-20deg, 0deg);
+            }
+
+            &.on-watchlist {
+                color: #84FFFF;
+            }
+        }
+
+        .movie-year, .movie-rating, .movie-genre {
+            position: absolute;
+            padding: 0.1em 0.4em;
+            width: fit-content;
+            background-color: rgba(0, 0, 0, 0.75);
+            border-radius: 0.375rem;
+        }
+
+        .movie-rating {
+            right: 8px;
+        }
+
+        .movie-genre {
+            left: 0;
+            right: 0;
+            bottom: 8px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .movie-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            opacity: 0.9;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+        }
+    }
+}

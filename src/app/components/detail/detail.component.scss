@@ -1,0 +1,27 @@
+.movie-details {
+    background-color: black;
+
+    .video-container {
+        -webkit-border-radius: 12px;
+        -moz-border-radius: 12px;
+        border-radius: 12px;
+        overflow: hidden;
+        width: 100%;
+
+        iframe {
+            -webkit-border-radius: 12px;
+            -moz-border-radius: 12px;
+            border-radius: 12px;
+            max-width: 100%;
+        }
+    }
+}
+
+.mat-mdc-standard-chip.mdc-evolution-chip--disabled {
+    opacity: 1 !important;
+}
+
+.mat-divider {
+    margin: 8px 0 !important;
+    border-color: darkgray !important;
+}
